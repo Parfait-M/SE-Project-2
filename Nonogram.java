@@ -6,9 +6,8 @@ import java.io.InputStreamReader;
 
 
 public class Nonogram {
-
+	
   // intputs:
-    // print: UnitTest()
     // run:  run_game()
 	// z_board: use default z puzzle
 	// a_board: use default a puzzle
