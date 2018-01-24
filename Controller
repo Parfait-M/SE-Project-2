@@ -1,0 +1,39 @@
+package hello;
+
+public class Controller {
+	
+	Model model;
+	View view;
+
+	public static void main(String [] args) {
+		boolean quit = false;
+		
+		while(!quit) {
+		//enum GameType can also have a quit value
+		//get game just asks the user for the game they want to play
+			GameType game = view.getGame();
+			if(game == QUIT)
+				quit(); // my function. Probably call view to print quitting message or not.
+			
+			//void function to take an enum GameType and make a board out of it. Guarentee it is not quit
+			model.makeBoard(game);
+			
+			//Print the game board from model, passed in game to make it easier to know what to print
+			view.printBoard(model.getBoard(),game);
+			
+			//if we take input as strings, then:
+			//getMove() just asks user for input. Returns string
+			input = view.getMove();
+			while(input != QUIT) {	//QUIT can be whatever strings we decide to make game stop. I'll write that
+				//updateBoard takes in a string value, and updates the game board based on that value.
+				model.updateBoard(input);
+				view.printBoard(model.getBoard()); // print board again
+				
+				
+			}
+			
+		}
+	}
+	
+
+}
