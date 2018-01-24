@@ -21,7 +21,7 @@ public class View
 		// TODO get/validate user input.
 	}
 	
-	public void DisplayBoard(char[][] board)
+	public  void DisplayBoard(char[][] board)
 	{
 		if (gameType == GameType.NONOGRAM) 
 		{
