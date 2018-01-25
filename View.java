@@ -26,34 +26,34 @@ public class View
 	{
 		boardSize = bSz;
 	}
-	
+
 	// Zac: gameType setter
 	static void setGameType(GameType gt)
 	{
 		gameType = gt;
 	}
-	
+
 	// Zac: gets user input
 	static String getMove()
 	{
-	    try 
+	    try
 	    {
 	      return in.readLine();
-	    } catch (Exception e) 
+	    } catch (Exception e)
 	    {
 	      System.out.print("Input error");
 	      return "Error";
 	    }
 	}
-	
-	
+
+
 	// Zac: print method
 	static void print(String msg)
 	{
 		System.out.print(msg);
 	}
 
-	
+
 	// Zac: Calls appropriate display function for the chosen game
 	static void displayBoard(char[][] board)
 	{
@@ -71,7 +71,8 @@ public class View
 	// Works for any sized Sudoku board
 	static void displaySudokuBoard(char[][] board)
 	{
-		System.out.print("* * * * * * * * * * * * *");
+		int asciiA = 65;
+	  System.out.print("\n* * * * * * * * * * * * *");
 
 	  for(int i = 0; i < board.length; i++)
 	  {
@@ -86,14 +87,25 @@ public class View
 	        System.out.print("| ");
 	      }
 	    }
-	    System.out.print("*");
+	    System.out.print("* " + (char)(asciiA + i));
 
 	    if((i + 1) % 3 == 0 && (i + 1) != board.length)
 	    {
 	      System.out.print("\n* ------|-------|------ *");
 	    }
 	  }
-	  System.out.print("\n* * * * * * * * * * * * *\n");
+	  System.out.print("\n* * * * * * * * * * * * *\n  ");
+
+	  for(int i = 1; i <= board.length; i++)
+	  {
+	    System.out.print(i + " ");
+
+	    if(i % 3 == 0 && i != board.length)
+	    {
+	      System.out.print("  ");
+	    }
+	  }
+	  System.out.print("\n");
 
 	}
 
