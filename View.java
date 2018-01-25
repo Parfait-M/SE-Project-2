@@ -1,9 +1,12 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class View
 {
 
-	private int boardSize;
-	private GameType gameType;
+	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	private static int boardSize;
+	private static GameType gameType;
 	View(){}
 
 	public static char[][] sudoBoard= {
@@ -19,13 +22,13 @@ public class View
 	};
 
 	// Zac: boardSize setter
-	public void setBoardSize(int bSz)
+	static void setBoardSize(int bSz)
 	{
 		boardSize = bSz;
 	}
 	
 	// Zac: gameType setter
-	public void setGameType(GameType gt)
+	static void setGameType(GameType gt)
 	{
 		gameType = gt;
 	}
@@ -33,8 +36,14 @@ public class View
 	// Zac: gets user input
 	static String getMove()
 	{
-		return "";
-		// TODO get/validate user input.
+	    try 
+	    {
+	      return in.readLine();
+	    } catch (Exception e) 
+	    {
+	      System.out.print("Input error");
+	      return "Error";
+	    }
 	}
 	
 	
@@ -45,7 +54,7 @@ public class View
 	}
 
 	
-	// Zac: Calls appropriate display function for the game
+	// Zac: Calls appropriate display function for the chosen game
 	static void displayBoard(char[][] board)
 	{
 		switch (gameType)
