@@ -3,7 +3,8 @@ public class View
 {
 
 	private int boardSize;
-	GameType gameType;
+	private GameType gameType;
+	View(){}
 
 	public static char[][] sudoBoard= {
 		{'1', '2', '3', '4', '5', '6', '7', '8', '9'},
@@ -17,38 +18,49 @@ public class View
 		{'1', '2', '3', '4', '5', '6', '7', '8', '9'}
 	};
 
-	// Adam/Zack: Input/Output
-
-	// constructor
-	View(int boardSize, GameType gameType)
+	// Zac: boardSize setter
+	public void setBoardSize(int bSz)
 	{
-		this.boardSize = boardSize;
-		this.gameType = gameType;
+		boardSize = bSz;
 	}
-
-
-	public String GetMove()
+	
+	// Zac: gameType setter
+	public void setGameType(GameType gt)
+	{
+		gameType = gt;
+	}
+	
+	// Zac: gets user input
+	static String getMove()
 	{
 		return "";
 		// TODO get/validate user input.
 	}
-
-	public  void DisplayBoard(char[][] board)
+	
+	
+	// Zac: print method
+	static void print(String msg)
 	{
-		if (gameType == GameType.NONOGRAM)
+		System.out.print(msg);
+	}
+
+	
+	// Zac: Calls appropriate display function for the game
+	static void displayBoard(char[][] board)
+	{
+		switch (gameType)
 		{
-			DisplayNonogramBoard(board);
-		}
-		else if (gameType == GameType.OTHER)
-		{
-			Display_OTHERGAME_Board(board);
+		case NONOGRAM:
+			displayNonogramBoard(board); break;
+		case SUDOKU:
+			displaySudokuBoard(board);
 		}
 
 	}
 
 	// Adam
 	// Works for any sized Sudoku board
-	private void DisplaySudokuBoard(char[][] board)
+	static void displaySudokuBoard(char[][] board)
 	{
 		System.out.print("* * * * * * * * * * * * *");
 
@@ -78,7 +90,7 @@ public class View
 
 
 	// Adam
-	private void DisplayNonogramBoard(char[][] board)
+	static void displayNonogramBoard(char[][] board)
 	{
 		// Leave board at 5x5
     int rLen = board[0].length;
@@ -175,14 +187,7 @@ public class View
     System.out.print("\n");
 	}
 
-
-
-	public void PrintMessage(String message)
-	{
-
-	}
-
-
+	// Zac
 	// generates prompt for Nonogram game
 	// receives a 5x5 board
 	// returns a 10x5 array (2 5x5 arrays)

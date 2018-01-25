@@ -28,19 +28,19 @@ public class Controller {
 				model.makeBoard(game);
 				
 				//Print the game board from model, passed in game to make it easier to know what to print
-				view.DisplayBoard(model.getBoard());
+				view.displayBoard(model.getBoard());
 				
 				//if we take input as strings, then:
 				//getMove() just asks user for input. Returns string
-				String input = view.GetMove();
+				String input = view.getMove();
 				while(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q") &&
 						!input.equalsIgnoreCase("exit")) {	
 					//QUIT can be whatever strings we decide to make game stop. I'll write that
 				
 					//updateBoard takes in a string value, and updates the game board based on that value.
 					model.updateBoard(input);
-					view.DisplayBoard(model.getBoard()); // print board again
-					input = view.GetMove();
+					view.displayBoard(model.getBoard()); // print board again
+					input = view.getMove();
 				
 			
 		}
