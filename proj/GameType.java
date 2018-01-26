@@ -1,3 +1,4 @@
+package proj;
 
 public enum GameType
 {

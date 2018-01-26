@@ -1,3 +1,5 @@
+package proj;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -55,12 +57,13 @@ public class View
 
 
 	// Zac: Calls appropriate display function for the chosen game
-	static void displayBoard(char[][] board)
+	static void displayBoard(char[][] board, char[][] solved_board)
 	{
 		switch (gameType)
 		{
 		case NONOGRAM:
-			displayNonogramBoard(board); break;
+			displayNonogramBoard(board,solved_board);
+			break;
 		case SUDOKU:
 			displaySudokuBoard(board);
 		}
@@ -111,10 +114,12 @@ public class View
 
 
 	// Adam
-	static void displayNonogramBoard(char[][] board)
+	static void displayNonogramBoard(char[][] board, char[][] solved_board)
 	{
 		// Leave board at 5x5
     int rLen = board[0].length;
+
+		int[][] numbers = generateNongramPrompt(solved_board);
 
     // To print colummn coordinates
     char rowCords[] = new char[] {'A', 'B', 'C', 'D', 'E'};
@@ -212,7 +217,7 @@ public class View
 	// generates prompt for Nonogram game
 	// receives a 5x5 board
 	// returns a 10x5 array (2 5x5 arrays)
-	private int[][] generateNongramPrompt(char[][] board)
+	public static int[][] generateNongramPrompt(char[][] board)
 	{
 		  int colCounter = 0;	// counters for consecutive #'s
 		  int rowCounter = 0;
