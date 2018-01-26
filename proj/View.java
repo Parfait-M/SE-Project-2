@@ -114,103 +114,121 @@ public class View
 
 
 	// Adam
+	// Works for any size
 	static void displayNonogramBoard(char[][] board, char[][] solved_board)
 	{
-		// Leave board at 5x5
-    int rLen = board[0].length;
+
+		int rLen = board.length;
+		int asciiA = 65;
 
 		int[][] numbers = generateNongramPrompt(solved_board);
 
-    // To print colummn coordinates
-    char rowCords[] = new char[] {'A', 'B', 'C', 'D', 'E'};
+		// To print colummn coordinates
+		char rowCords[] = new char[] {'A', 'B', 'C', 'D', 'E'};
 
-    int r = 2; // Default maximum number of rows
+		int r = rLen/2; // Default maximum number of rows
 
+		boolean foundNonnegative = false;
+		// Finds the maximum number of rows to avoid prining extra blank spaces
+		for(int i = rLen/2; i > -1; i--)
+		{
+			for(int j = 0; j < rLen; j++)
+			{
+				if(numbers[j][i] != -1)
+				{
+					foundNonnegative = true;
+				}
+			}
+			if(!foundNonnegative)
+			{
+				r--;
+			}
+			foundNonnegative = false;
+		}
 
-    // Finds the maximum number of rows to avoid prining extra blank spaces
-    for(int i = 2; i > -1; i--)
-    {
-      if(numbers[0][i] == -1 && numbers[1][i] == -1 && numbers[2][i] == -1 && numbers[3][i] == -1 && numbers[4][i] == -1) {
-        r--;
-      }
-    }
+		// For looks, I swap the non -1 numbers so that there are only blanks on top of numbers
+		for(int i = 0; i < rLen; i++)
+		{
+			int j = rLen/2;
+			int k = 0;
+			boolean swapped = false;
+			while(!swapped && j > 0)
+			{
+				if(numbers[i][j] != -1)
+				{
+					int temp = numbers[i][k];
+					numbers[i][k] = numbers[i][j];
+					numbers[i][j] = temp;
+					swapped = true;
+					k++;
+				}
+				j--;
 
-    // For looks, I swap the non -1 numbers so that there are only blanks on top of numbers
-    for(int i = 0; i < 5; i++)
-    {
-      int j = 2;
-      boolean swapped = false;
-      while(!swapped && j > 0)
-      {
-        if(numbers[i][j] != -1)
-        {
-          int temp = numbers[i][0];
-          numbers[i][0] = numbers[i][j];
-          numbers[i][j] = temp;
-          swapped = true;
-        }
-        j--;
-      }
-    }
+				if(k == ((rLen/4) + 1))
+				{
+					break;
+				}
+			}
+		}
 
-    // Prints Column numbers in column major order
-    // Start at max row to avoid creating an extra line of all blanks
-    for(int i = r; i > -1; i--) {
-      System.out.print("\n       ");
-      int j = 0;
-      while(j < rLen) {
+		// Prints Column numbers in column major order
+		// Start at max row to avoid creating an extra line of all blanks
+		for(int i = r; i > -1; i--) {
+			System.out.print("\n       ");
+			int j = 0;
+			while(j < rLen) {
 
-        // If there is a -1, print a space to ensure alignment
-        if(numbers[j][i] == -1) {
-          System.out.print("  ");
+				// If there is a -1, print a space to ensure alignment
+				if(numbers[j][i] == -1) {
+					System.out.print("  ");
 
-        }
+				}
 
-        else {
-          // Print in column major order
-          System.out.print(numbers[j][i] + " ");
-        }
-        // Next Column
-        j++;
-      }
-    }
-    System.out.print("\n");
+				else {
+					// Print in column major order
+					System.out.print(numbers[j][i] + " ");
+				}
+				// Next Column
+				j++;
+			}
+		}
+		System.out.print("\n");
 
-    // Print Row nums and board
-    for(int i = 0; i < board[0].length; i++) {
+		// Print Row nums and board
+		for(int i = 0; i < board[0].length; i++) {
 
-      String row = ""; // To hold row numbers as a delimited string
-      for(int a = 0; a < rLen; a++) {
-        // Use i for rows, but we need to add 5 to access the row numbers
-        if(numbers[i + 5][a] == -1) {
-          // Stop loop to print row
-          a = rLen;
-        }
+			String row = ""; // To hold row numbers as a delimited string
+			for(int a = 0; a < rLen; a++) {
+				// Use i for rows, but we need to add 5 to access the row numbers
+				if(numbers[i + board.length][a] == -1) {
+					// Stop loop to print row
+					a = rLen;
+				}
 
-        else {
-          // Generates a string literal for the row numbers for print formatting purposes
-          row += (Integer.toString(numbers[i + 5][a]) + " ");
-        }
-      }
+				else {
+					// Generates a string literal for the row numbers for print formatting purposes
+					row += (Integer.toString(numbers[i + board.length][a]) + " ");
+				}
+			}
 
-      // Print row numbers for row i
-      System.out.printf("%6s ", row);
+			// Print row numbers for row i
+			System.out.printf("%6s ", row);
 
-      // Print board row i
-      for(int j = 0; j < board[i].length; j++) {
-        System.out.print(board[i][j] + " ");
-      }
+			// Print board row i
+			for(int j = 0; j < board[i].length; j++) {
+				System.out.print(board[i][j] + " ");
+			}
 
-      // Print board col coordinate for row i
-      System.out.print(rowCords[i] + "\n");
-    }
+			// Print board col coordinate for row i
+			System.out.print((char)(asciiA + i) + "\n");
+		}
 
-    // Print Col Cords
-    System.out.print("       ");
-    for(int i = 1; i < 6; i++) {
-      System.out.print(i + " ");
-    }
-    System.out.print("\n");
+		// Print Col Cords
+		System.out.print("       ");
+		for(int i = 1; i <= board.length; i++) {
+			System.out.print(i + " ");
+		}
+		System.out.print("\n");
 	}
 
 	// Zac
