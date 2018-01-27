@@ -105,7 +105,6 @@ public class UnitTests {
  {
 	 if (testPrompt.length != expectedPrompt.length)
 		 return false;
-	// for (int i = 0; i < view.boardSize)
 	 
 	  boolean pass = true;
 	  for (int i = 0; i < 10; ++i)
@@ -113,9 +112,9 @@ public class UnitTests {
 		  for (int j = 0; j < 5; ++j)
 		  {
 			  if (testPrompt[i][j] != expectedPrompt[i][j])
-				  pass = false;
+				  return false;
 		  }
 	  }
-	  return pass;
+	  return true;
  }
 }

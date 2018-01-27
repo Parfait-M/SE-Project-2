@@ -28,6 +28,11 @@ public class View
 	{
 		boardSize = bSz;
 	}
+	
+	public static int getBoardSize()
+	{
+		return boardSize;
+	}
 
 	// Zac: gameType setter
 	public static void setGameType(GameType gt)
@@ -272,7 +277,7 @@ public class View
 					  rowCounter++;
 				  }
 				  if ((board[i][j] == '_' || j == boardSize-1) && rowCounter != 0) {
-					  prompt[promptI+5][promptJ2] = rowCounter;
+					  prompt[promptI+boardSize][promptJ2] = rowCounter;
 					  promptJ2++;
 					  rowCounter = 0;
 				  }
