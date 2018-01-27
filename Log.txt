@@ -1,7 +1,10 @@
 Logs:
 
 *Adam*
-
+- Worked on the View
+- Wrote the display functions for both games, display functions work with
+Board of any size
+- Wrote Unit Tests
 
 
 *John*
