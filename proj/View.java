@@ -35,9 +35,19 @@ public class View
 		gameType = gt;
 	}
 
-	// Zac: gets user input
+	// Zac: prompts user and gets user input
 	static String getMove()
 	{
+		// prompt for input
+		switch (gameType)
+		{
+		case NONOGRAM: System.out.println("\n\nfill space :"
+				+ " <row><col>\nclear space : -<row><col>\nmark space :"
+				+ " x<row><col>\nExamples: 1a, -4b, x2c"); break;
+		case SUDOKU: System.out.println("sudoku input instructions: TBD"); break;
+		default: break;
+		}
+		// get input
 	    try
 	    {
 	      return in.readLine();
@@ -48,26 +58,15 @@ public class View
 	    }
 	}
 
-
-	// Zac: print method
-	static void print(String msg)
-	{
-		System.out.print(msg);
-	}
-
-
 	// Zac: Calls appropriate display function for the chosen game
 	static void displayBoard(char[][] board, char[][] solved_board)
 	{
 		switch (gameType)
 		{
-		case NONOGRAM:
-			displayNonogramBoard(board,solved_board);
-			break;
-		case SUDOKU:
-			displaySudokuBoard(board);
+		case NONOGRAM: displayNonogramBoard(board,solved_board); break;
+		case SUDOKU: displaySudokuBoard(board); break;
+		default:break;
 		}
-
 	}
 
 	// Adam
@@ -233,8 +232,8 @@ public class View
 
 	// Zac
 	// generates prompt for Nonogram game
-	// receives a 5x5 board
-	// returns a 10x5 array (2 5x5 arrays)
+	// receives any size board
+	// returns a returns a size*2 x size array with the generated prompt
 	public static int[][] generateNongramPrompt(char[][] board)
 	{
 		  int colCounter = 0;	// counters for consecutive #'s
