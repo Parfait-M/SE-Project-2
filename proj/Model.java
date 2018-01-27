@@ -5,6 +5,11 @@ import java.util.ArrayList;
 public class Model
 {
 
+	public static final int INVALID_INPUT = 0;
+	public static final int VALID_INPUT = 1;
+	public static final int SOLVED_BOARD = 2;
+
+	private static int NIB;
 	private static int SIZE;
 	private static GameType gameType;
 
@@ -14,7 +19,8 @@ public class Model
 	// John: generate board
 
 	public static void main(String[] a) {
-		makeBoard(GameType.NONOGRAM);
+		makeBoard(GameType.SUDOKU);
+		View.setGameType(GameType.SUDOKU);
 		View.displayBoard(getBoard(),getPrompt());
 		// makeBoard(GameType.SUDOKU);
 	}
@@ -39,8 +45,12 @@ public class Model
 	}
 
 	// updates the board based on input
-	static void updateBoard(String input) {
-
+	// places c at coordinates[i][j] if input is valid
+	// returns 0 if input is invalid
+	// returns 1 if input is valid
+	// returns 2 if input solved board
+	static int updateBoard(char c, int i, int j) {
+		return VALID_INPUT;
 	}
 
 	// Nonogram
@@ -221,11 +231,35 @@ public class Model
 		// return solved_board;
 		return current_board;
 	}
+	private static boolean isNonogramSolved() {
+		for (int i = 0; i < SIZE; ++i)
+			for (int j = 0; j < SIZE; ++j)
+				if ((current_board[i][j] == '#') != (solved_board[i][j] == '#'))
+					return false;
+		return true;
+	}
 
 	// Sudoku
 	// ------------------------------------------------------------
 
 	private static int prompt_index = 0;
+	private static int[][] sodoku_blocks;
+	private static void make_sudoku_blocks() {
+		sodoku_blocks = new int[SIZE * NIB][SIZE];
+		for (int i = 0; i < SIZE; ++i)
+			for (int j = 0; j < SIZE; ++j)
+				sodoku_blocks[i][j] = sodoku_blocks[SIZE+j][i] = SIZE * i + j;
+		for (int I = 0, K = SIZE + SIZE; I < SIZE * SIZE; I += NIB * SIZE)
+			for (int J = 0; J < SIZE; J += NIB, K++)
+				for (int i = 0, k = 0; i < NIB * SIZE; i += SIZE)
+					for (int j = 0; j < NIB; ++j)
+						sodoku_blocks[K][k++] = I + J + i + j;
+	}
+	private static int get_value(int k) {
+		char c = current_board[k / SIZE][k % SIZE];
+		if (c == '_') return -1;
+		else return (int)(c - '1');
+	}
 	private static String[] sudoku_prompts = {
 		"_____9__81_4___5__26__1_____9__3_4__81_7_5_36__3_9__8_____5__43__1___8_55__3_____",
 		"____6___23__9__6___48_____5_79__2___46_____23___4__96_2_____35___1__6__85___4____",
@@ -235,22 +269,33 @@ public class Model
 	};
 
 	private static void makeSudoku() {
-		SIZE = 9;
+		NIB = 3;
+		SIZE = NIB * NIB;
 		View.setBoardSize(SIZE);
 		solved_board = new char[SIZE][SIZE];
 		current_board = new char[SIZE][SIZE];
+		make_sudoku_blocks();
 
 		char[] prompt = sudoku_prompts[prompt_index++ % sudoku_prompts.length].toCharArray();
-		for (int i = 0; i < SIZE*SIZE; i += SIZE) {
-			for (int j = 0; j < SIZE; ++j) {
-				current_board[i][j] = solved_board[i][j] = prompt[i + j];
-			}
-		}
-
-
+		for (int i = 0; i < SIZE; ++i)
+			for (int j = 0; j < SIZE; ++j)
+				current_board[i][j] = solved_board[i][j] = prompt[i*SIZE + j];
 	}
 	private static char[][] getSudoku() {
-		return solved_board;
+		return current_board;
+	}
+	private static boolean isSudokuSolved() {
+		for (int[] b : sodoku_blocks) {
+			int[] num_count = new int[SIZE];
+			for (int i : b) {
+				int n = get_value(i);
+				if (n < 0) return false;
+				else ++num_count[n];
+			}
+			for (int c : num_count)
+				if (c != 1) return false;
+		}
+		return true;
 	}
 
 
