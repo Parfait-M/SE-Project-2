@@ -16,3 +16,6 @@ Board of any size
 
 
 *Zachary*
+- Wrote a function to prompt for and get user input.
+- Wrote a function to generated hints for the Nonogram game
+- Added a unit test for that function ^

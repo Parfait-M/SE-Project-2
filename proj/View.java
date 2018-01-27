@@ -43,7 +43,7 @@ public class View
 		{
 		case NONOGRAM: System.out.println("\n\nfill space :"
 				+ " <row><col>\nclear space : -<row><col>\nmark space :"
-				+ " x<row><col>\nExamples: 1a, -4b, x2c"); break;
+				+ " x<row><col>\nExamples: 1a, -4b, x2c\ntype 'quit' to return to menu"); break;
 		case SUDOKU: System.out.println("sudoku input instructions: TBD"); break;
 		default: break;
 		}
