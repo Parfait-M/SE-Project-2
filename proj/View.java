@@ -9,7 +9,7 @@ public class View
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	private static int boardSize;
 	private static GameType gameType;
-	View(){}
+	public View(){}
 
 	public static char[][] sudoBoard= {
 		{'1', '2', '3', '4', '5', '6', '7', '8', '9'},
@@ -24,13 +24,13 @@ public class View
 	};
 
 	// Zac: boardSize setter
-	static void setBoardSize(int bSz)
+	public static void setBoardSize(int bSz)
 	{
 		boardSize = bSz;
 	}
 
 	// Zac: gameType setter
-	static void setGameType(GameType gt)
+	public static void setGameType(GameType gt)
 	{
 		gameType = gt;
 	}
