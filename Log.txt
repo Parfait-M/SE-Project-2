@@ -8,9 +8,15 @@ Board of any size
 
 
 *John*
-
-
-
+- Started a little too late
+- I had already written a nonogram board generator in javascript
+  so I ported that over to Java
+- I started to make a sudoku board generator, but saw that I didn't have enough
+  time, so I just used a pre-backed generator to generated a few pre-made boards
+- I saw that the updateBoard function that was defined for me didn't
+  do any kind of input parsing and found that doing that kind of
+  manipulation on a model level didn't work very well.
+  
 *Parfait*
 
 

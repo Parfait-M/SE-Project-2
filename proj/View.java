@@ -28,7 +28,7 @@ public class View
 	{
 		boardSize = bSz;
 	}
-	
+
 	public static int getBoardSize()
 	{
 		return boardSize;
@@ -64,11 +64,11 @@ public class View
 	}
 
 	// Zac: Calls appropriate display function for the chosen game
-	static void displayBoard(char[][] board, char[][] solved_board)
+	static void displayBoard(char[][] board, char[][] solution)
 	{
 		switch (gameType)
 		{
-		case NONOGRAM: displayNonogramBoard(board,solved_board); break;
+		case NONOGRAM: displayNonogramBoard(board,solution); break;
 		case SUDOKU: displaySudokuBoard(board); break;
 		default:break;
 		}
@@ -119,13 +119,13 @@ public class View
 
 	// Adam
 	// Works for any size
-	static void displayNonogramBoard(char[][] board, char[][] solved_board)
+	static void displayNonogramBoard(char[][] board, char[][] solution)
 	{
 
 		int rLen = board.length;
 		int asciiA = 65;
 
-		int[][] numbers = generateNongramPrompt(solved_board);
+		int[][] numbers = generateNongramPrompt(solution);
 
 		// To print colummn coordinates
 		char rowCords[] = new char[] {'A', 'B', 'C', 'D', 'E'};
