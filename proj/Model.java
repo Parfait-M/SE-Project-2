@@ -32,6 +32,10 @@ public class Model
 		else if (gt == GameType.SUDOKU) makeSudoku();
 		else gameType = GameType.QUIT;
 	}
+	
+	static int getSize() {
+		return SIZE;
+	}
 
 	static char[][] getBoard() {
 		if (gameType == GameType.NONOGRAM) return getNonogram();

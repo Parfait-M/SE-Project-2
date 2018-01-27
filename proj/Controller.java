@@ -39,6 +39,31 @@ public class Controller {
 			exit();
 		}
 	}
+	
+	public static int updateBoard(String input) {
+		int i = 0, r = 0, c = 0;
+		char ch, playChar = ' ';
+		switch(game) {
+		case NONOGRAM:
+			ch = input.charAt(i);
+			if(ch == 'x') {
+				playChar = 'X';
+				i++;
+			}
+			else if(ch == '-') {
+				playChar = '_';
+				i++;
+			}else
+				playChar = '#';
+			r = Integer.parseInt(""+input.charAt(i));
+			c = Integer.parseInt(""+ (input.charAt(i+1) - 'a'));
+			break;
+			
+		case SUDOKU:
+			break;
+		}
+		return model.updateBoard(playChar, r, c);		
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -53,6 +78,7 @@ public class Controller {
 				//void function to take an enum GameType and make a board out of it. Guarentee it is not quit
 				model.makeBoard(game);
 				view.setGameType(game);
+				view.setBoardSize(model.getSize());
 				
 				//model function that returns size of the board
 				//int boardSize = model.getBoardSize();
@@ -66,12 +92,23 @@ public class Controller {
 						!input.equalsIgnoreCase("exit")) {	
 					//QUIT can be whatever strings we decide to make game stop. I'll write that
 				
+					//user enters input in 
+					
+					
 					//updateBoard takes in a string value, and updates the game board based on that value.
-					model.updateBoard(input);
+					switch(updateBoard(input)){
+					case 1:
+						sopl("Incorrect input. Please try again");
+						break;
+					case 2:
+						sopl("CONGRATULATIONS!!! YOU WON THE GAME");
+						input = "quit";
+						break;
+					}
 					view.displayBoard(model.getBoard(),model.getPrompt()); // print board again
 					input = view.getMove();
-				
-		}
+					
+				}
 		
 		
 	}
