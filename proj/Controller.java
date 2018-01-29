@@ -2,10 +2,12 @@ package proj;
 
 public class Controller {
 
+	//objects from Model, View, and GameType classes
 	static Model model;
 	static View view;
 	static GameType game;
 	static java.util.Scanner kb = new java.util.Scanner (System.in);
+	//functions needed to make life easier in java
 	static void sop(Object s) {System.out.print(s);}
 	static void sopl(Object s) {System.out.println(s);}
 
@@ -13,9 +15,10 @@ public class Controller {
 		sopl("THANK YOU FOR PLAYING!!\nCOME VISIT US AGAIN!!");
 		System.exit(0);
 	}
-
+	// Method updates the GameType option to the user's choice
 	static void getGame() {
-		int inp;
+		String inp;
+		int i = 0;
 
 		sopl("WELCOME TO");
 		sopl("ADAM, JOHN, PARFAIT, AND ZAC'S");
@@ -23,11 +26,18 @@ public class Controller {
 
 		do
 		{
+			try {
 			sopl("Please select game that you want to play: ");
 			sopl("1. Nonogram\n2. Sudoku\n3. QUIT");
-			inp = kb.nextInt();
-		}while(inp < 1 || inp > 3);
-		switch(inp)
+			
+				inp = kb.next();
+				i = Integer.parseInt(inp);
+			}catch (Exception e) {
+				sopl("Invalid input, please try again!");
+				i = -1;
+			}
+		}while(i < 1 || i > 3);
+		switch(i)
 		{
 		case 1:
 			game = GameType.NONOGRAM;
@@ -40,6 +50,7 @@ public class Controller {
 		}
 	}
 
+	
 	public static int updateBoard(String input) {
 		int i = 0, r = 0, c = 0;
 		char ch, playChar = ' ';
@@ -47,21 +58,34 @@ public class Controller {
 		case NONOGRAM:
 			ch = input.charAt(i);
 			if(ch == 'x') {
-				playChar = 'X';
-				i++;
+				playChar = 'x';
+				++i;
 			}
 			else if(ch == '-') {
 				playChar = '_';
 				i++;
 			}else
 				playChar = '#';
-			r = Integer.parseInt(""+input.charAt(i));
-			c = Integer.parseInt(""+ (input.charAt(i+1) - 'a'));
 			break;
 
 		case SUDOKU:
+			ch = input.charAt(i);
+			if(ch == '-') {
+				playChar = '_';
+				i++;
+			}else {
+				playChar = input.charAt(input.length() - 1);
+			}
 			break;
 		}
+		
+		try {
+			c = Integer.parseInt(""+input.charAt(i)) - 1;
+			r = Integer.parseInt(""+ (input.charAt(i+1) - 'a'));
+		}catch (Exception e){
+			r = c = -1;
+		}
+		
 		return model.updateBoard(playChar, r, c);
 	}
 
@@ -83,7 +107,7 @@ public class Controller {
 				//model function that returns size of the board
 				//int boardSize = model.getBoardSize();
 				//Print the game board from model, passed in game to make it easier to know what to print
-				view.displayBoard(model.getBoard(),model.getPrompt());
+				view.displayBoard(model.getBoard(),model.getSolution());
 
 				//if we take input as strings, then:
 				//getMove() just asks user for input. Returns string
@@ -108,7 +132,7 @@ public class Controller {
 						input = "quit";
 						break;
 					}
-					view.displayBoard(model.getBoard(),model.getPrompt()); // print board again
+					view.displayBoard(model.getBoard(),model.getSolution()); // print board again
 					input = view.getMove();
 
 				}
