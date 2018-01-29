@@ -18,7 +18,9 @@ Board of any size
   manipulation on a model level didn't work very well.
   
 *Parfait*
-
+- Had misconceptions about the Controller's responsabilities
+- Called methods from both Model and View to interact with user and run the game
+- Wrote a method to parse the user input and sent it to the model
 
 
 *Zachary*
